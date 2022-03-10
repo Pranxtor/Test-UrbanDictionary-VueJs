@@ -1,6 +1,7 @@
 <script lang="ts">
-import Vue, { Ref } from 'vue';
+import { Ref } from 'vue';
 import axios from 'axios';
+import { Vue } from 'vue-class-component';
 
 // reactive state
 
