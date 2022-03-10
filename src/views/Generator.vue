@@ -1,45 +1,34 @@
-<script lang="ts">
-import { Ref } from 'vue';
-import axios from 'axios';
-import { Vue } from 'vue-class-component';
+<script setup>
+import { reactive } from 'vue';
+import axios from 'axios'
 
-// reactive state
+const definition = reactive({
+  word: '',
+  definition: '',
+  example: '',
+})
 
-
-// functions that mutate state and trigger updates
-
-
-// lifecycle hooks
-export default class DefinitionGenerator extends Vue {
-    definition : {
-        word: Ref<String>,
-        definition: Ref<String>,
-        example: Ref<String>,
-    } [] = [];
-
-    random() {
-    axios.get('https://api.urbandictionary.com/v0/random')
-        .then((response) => {
-            this.definition = response.data
-        })
-    }
-
-    created(): void {
-      this.random()
-    };
+async function generateRandomDef () {
+        const {data} = await axios.get(`https://api.urbandictionary.com/v0/random`)
+        definition.word = data.list[0].word
+        definition.definition = data.list[0].definition
+        definition.example = data.list[0].example
 }
+
+generateRandomDef()
 
 </script>
 
 <template>
   <main>
     <div class="generator-container">
-        <div class="definition-container">
-            <h3 class="word">{definition.word}</h3>
-            <p class="definition">Definition</p>
-            <p>Example</p>
+        <p v-if="definition.word === ''">Loading...</p>
+        <div class="definition-container" v-else>
+            <h3 class="word">{{ definition.word }}</h3>
+            <p class="definition">{{ definition.definition }}</p>
+            <p>Example : {{ definition.example }}</p>
         </div>
-        <button class="random-click">Generate a definition</button>
+        <button class="random-click" @click="generateRandomDef">Generate a definition</button>
     </div>
   </main>
 </template>
@@ -64,6 +53,7 @@ export default class DefinitionGenerator extends Vue {
 
 .word{
     font-size: 32px;
+    font-weight: 600;
     line-height: 41px;
     color: #134FE5;
 }
@@ -80,6 +70,7 @@ export default class DefinitionGenerator extends Vue {
     background: #134FE5;
     border-radius: 30px;
     color: #EFFF00;
+    font-size: 18px;
     font-weight: bold;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
     padding: 10px;
