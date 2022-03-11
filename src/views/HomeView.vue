@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 import { ref, watch } from 'vue';
 import { Form, Field, useField, ErrorMessage} from 'vee-validate';
 import * as Yup from 'yup'
@@ -44,7 +44,7 @@ export default {
   },
 
   methods: {
-    onSubmit(values : []) {
+    onSubmit(values) {
       //console.log(values)
       this.$router.push(`/generator`);
     },
@@ -57,25 +57,24 @@ export default {
       <div class="login-container">
       <Form @submit="onSubmit" >
           <div class="input-container">
-                  <label htmlFor="username" >Username</label>
-                  <Field 
-                      name="username"
-                      type="text" 
-                      placeholder="Enter your username"
-                      :rules = "validUsr"
-                  />
-                  
-                <p><ErrorMessage name="username" /></p>
+            <label htmlFor="username" >Username</label>
+            <Field 
+                name="username"
+                type="text" 
+                placeholder="Enter your username"
+                :rules = "validUsr"
+            />
+            <span class="errorMessage"><ErrorMessage name="username" /></span>
           </div>
           <div class="input-container">
-                  <label htmlFor="password" >Password</label>
-                  <Field 
-                      name="password"
-                      type="password" 
-                      placeholder="Enter your password"
-                      :rules = "validPwd"
-                  />
-                  <p><ErrorMessage name="password" /></p>
+            <label htmlFor="password" >Password</label>
+            <Field 
+                name="password"
+                type="password" 
+                placeholder="Enter your password"
+                :rules = "validPwd"
+            />
+            <span class="errorMessage"><ErrorMessage name="password" /></span>
           </div>
           <div class="btn-container">
             <button class="btn-submit">Login</button>
@@ -105,6 +104,7 @@ export default {
 .input-container{
   display: flex;
   flex-direction: column;
+  margin-bottom: 30px;
 }
 
 label{
@@ -117,7 +117,13 @@ label{
 input{
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 5px;
+}
+
+.errorMessage{
+  font-size: 14px;
+  color: red;
+  padding-left: 10px;
 }
 
 .btn-container{
@@ -136,6 +142,7 @@ input{
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
   padding: 10px 40px;
   margin-bottom: 30px;
+  cursor: pointer;
 }
 
 </style>
