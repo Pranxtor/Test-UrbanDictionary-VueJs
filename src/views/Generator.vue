@@ -68,12 +68,14 @@ generateRandomDef()
 
 .random-click{
     background: #134FE5;
+    border: none;
     border-radius: 30px;
-    color: #EFFF00;
-    font-size: 18px;
-    font-weight: bold;
+    color: white;
+    font-family: Lora;
+    font-size: 20px;
+    font-weight: 700;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    padding: 10px;
+    padding: 10px 15px;
     margin-bottom: 30px;
 }
 
